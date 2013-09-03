@@ -6,11 +6,14 @@ var WebSocket = function (url, protocol) {
 
   this.events = [];
   this.protocol = protocol;
-  
+  if(typeof this.protocol === 'undefined'){
+    this.protocol = 'ws';
+  }
+
   this.url = url;
   this.readyState = WebSocket.CONNECTING;
   
-  var args = (protocol) ? [ url, protocol ] : [ url ];
+  var args = (this.protocol) ? [ this.url, this.protocol ] : [ this.url ];
 
   exec(
     function (event) {
@@ -101,3 +104,4 @@ WebSocket.prototype.CLOSED = WebSocket.CLOSED = 3;
 if (module.exports) {
   module.exports = WebSocket;
 }
+
